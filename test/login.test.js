@@ -1,10 +1,11 @@
 const request = require('supertest'); //Importa a biblioteca supertest para fazer requisições HTTP
 const { expect } = require('chai'); //Importa a função expect da biblioteca chai para fazer asserções nos testes
+require('dotenv').config()
 
 describe('Login', () => { //Inicia a descrição do conjunto de testes para a funcionalidade de login
     describe('POST /login', () => { //Inicia a descrição do teste para a rota POST /login
         it('Deve retornar 200 com un token em string quando usar credenciais válidas', async () => { //Define o teste que espera um status 200 e um token em string ao usar credenciais válidas
-            const resposta = await request('http://localhost:3000') //Faz uma requisição HTTP para o servidor local na porta 3000
+            const resposta = await request(process.env.BASE_URL) // requisição HTTP para o servidor local na porta 3000
                 .post('/login') //Especifica que a requisição é do tipo POST para a rota /login
                 .set('Content-Type', 'application/json') //Define o cabeçalho da requisição para indicar que o corpo da requisição é do tipo JSON
                 .send({ //Envia o corpo da requisição com as credenciais de login
